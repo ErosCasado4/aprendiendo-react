@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 
-
 const FollowMouse = () => {
   const [enabled, setEnabled] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
+    //pointer move
   useEffect(() => {
     console.log('efecto', { enabled })
       
@@ -13,7 +13,6 @@ const FollowMouse = () => {
         console.log('handleMove', {clientX, clientY })
         setPosition({ x: clientX,y: clientY})
       }
-
       if (enabled) {
       window.addEventListener('pointermove', handleMove)
       }
@@ -27,6 +26,15 @@ const FollowMouse = () => {
       }
 
   } , [enabled])
+
+  //change body className
+  useEffect(() => {
+     document.body.classList.toggle('no-cursor', enabled)
+
+     return () => {
+      document.body.classList.remove('no-cursor')
+     }
+  },[enabled])
 
   return (
     <>
